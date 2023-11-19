@@ -1,0 +1,23 @@
+//breakpoints
+@forward "./Partials/breakpoint.module";
+
+//farward utils
+@forward "./Partials/utils.module";
+
+//base classses
+@forward "./Partials/base.module";
+
+@use "./Partials/variables.module" as var;
+
+body {
+  background: var.$gradient;
+}
+
+h1 {
+  color: nth($list: var.$toggle_text_color, $n: 1);
+}
+
+p {
+  color: var.$text_color_para;
+}
+
