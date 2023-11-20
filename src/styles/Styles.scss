@@ -1,23 +1,22 @@
 //breakpoints
-@forward "./Partials/breakpoint.module";
+@forward "./partials/breakpoint.module";
 
 //farward utils
-@forward "./Partials/utils.module";
+@forward "./partials/utils.module";
 
 //base classses
-@forward "./Partials/base.module";
+@forward "./partials/base.module";
 
-@use "./Partials/variables.module" as var;
+// @use "./partials/variables.module" as *;
 
-body {
-  background: var.$gradient;
-}
+// body {
+//   background: var.$gradient;
+// }
 
-h1 {
-  color: nth($list: var.$toggle_text_color, $n: 1);
-}
+// h1 {
+//   color: nth($list: var.$toggle_text_color, $n: 1);
+// }
 
-p {
-  color: var.$text_color_para;
-}
-
+// p {
+//   color: var.$text_color_para;
+// }

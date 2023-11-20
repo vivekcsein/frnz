@@ -1,4 +1,6 @@
 import "../styles/globals.css";
+import "../styles/Styles.scss";
+import "../styles/Vars.scss";
 import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
 import { getLayoutAPI } from "../libs/layoutapi";
