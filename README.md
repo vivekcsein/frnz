@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1>[Welcome to Frenzz.in](https://frenzz.in) </h1>
 
-## Getting Started
+<h6>install pnpm globally</h6>
+<p>npm install -g pnpm<p>
 
-First, run the development server:
+<h6>create next app </h6>
+<p>pnpm create next-app@latest . </P>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h6>install sass platform as developer dependency</h6>
+<p>pnpm add --save-dev sass</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<h6>add in next.config.js</h6>
+<p>const path = require('path');</p>
+<p>sassOptions: {
+  includePaths: [path.join(__dirname, 'styles')],
+},
+</p>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<p>run development server on http://localhost:3000/</p>
+<p>pnpm dev</p>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<p>create .env.local file for environment varibales</p>
 
-## Learn More
+<p> bcrypt-ts for hashing password</p>
+<p> yarn add bcrypt-ts </p>
+<p>pnpm add bcrypt-ts </p>
 
-To learn more about Next.js, take a look at the following resources:
+<p>use swiperjs for swipeing animations</p>
+<p>pnpm add swiper</p>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<p>use react-icons for icons</p>
+<p>pnpm add react-icons</p>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<h6>gsap for animating things</h6>
+<p>pnpm add gsap</P>
 
-## Deploy on Vercel
+<h6> next-auth for login & signing </h6>
+<p>pnpm add next-auth</p>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<h6>React-hook-forms library for forms & @hookform/resolvers & validating witj valibot </h6>
+<p>pnpm add @hookform/resolvers</p>
+<p>pnpm add react-hook-form </p>
+<p>pnpm add valibot </p>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h1>to install all depeendencies in one line</h1>
+<p>pnpm add bcrypt-ts react-icons swiper gsap next-auth @hookform/resolvers react-hook-form valibot </p>

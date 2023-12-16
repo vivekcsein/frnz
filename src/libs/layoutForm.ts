@@ -1,131 +1,145 @@
+//form layout created by vivekcse
 
-interface inputField {
-    id: number;
-    inputType?: number;
-    name: string;
-    type?: string;
-    label?: string;
-    placeholder?: string;
-    required?: boolean;
-}
-
-export const userFormInput = ({
-    id,
-    inputType = 0,
-    name = "",
-    type = "text",
-    label,
-    placeholder,
-    required = false,
-}: inputField) => {
-    return {
-        id: id,
-        inputType: inputType,
-        name: name,
-        type: type,
-        label: label,
-        placeholder: placeholder,
-        required: required,
-    };
-};
-
-export const LogINFormLayout = {
-    value: {
-        id: 1,
-        username: "",
+export const signinFormLayout = {
+    id: "signinForm",
+    values: {
         email: "",
         password1: "",
     },
 
     button: {
-        id: 0,
-        text: "Log IN",
-        type: 2,
+        id: "signinForm_btn",
+        text: "Sign In",
+        variant: 1,
     },
 
     inputFields: [
-        userFormInput({
-            id: 1,
-            inputType: 0,
-            name: "username/email",
+        {
+            id: "signinForm_inputFields_1",
+            variant: 1,
+            name: "email",
             type: "text",
             label: "Enter Username/Email :",
-            placeholder: "Enter Username/Email :",
+            placeholder: "Enter Your Email :",
             required: true,
-        }),
-        userFormInput({
-            id: 2,
-            inputType: 0,
+        },
+        {
+            id: "signinForm_inputFields_2",
+            variant: 1,
             name: "password",
             type: "password",
-            label: "Enter password :",
-            placeholder: "Enter Password :",
+            label: "Enter your password :",
+            placeholder: "Enter your Password :",
             required: true,
-        }),
+        },
     ],
 };
 
-export const SignUPFormLayout = {
-    value: {
-        id: 2,
+export const signupFormLayout = {
+
+    id: "signupForm",
+    values: {
         fullname: "",
         username: "",
         email: "",
-        password1: "",
+        password: "",
         confirmPassword: "",
     },
-
     button: {
-        id: 1,
+        id: "signupForm_btn",
         text: "Sign up",
-        type: 2,
+        variant: 1,
     },
 
     inputFields: [
-        userFormInput({
-            id: 1,
-            inputType: 1,
+        {
+            id: "signupForm_inputFields_1",
+            variant: 1,
             name: "fullname",
             type: "text",
             label: "Enter Your Name :",
             placeholder: "Enter Your Name :",
             required: true,
-        }),
-        userFormInput({
-            id: 2,
-            inputType: 1,
+        },
+        {
+            id: "signupForm_inputFields_2",
+            variant: 1,
             name: "username",
             type: "text",
             label: "Enter Username :",
             placeholder: "Enter Username :",
             required: true,
-        }),
-        userFormInput({
-            id: 3,
-            inputType: 1,
+        },
+        {
+            id: "signupForm_inputFields_3",
+            variant: 1,
             name: "email",
             type: "text",
             label: "Enter email :",
             placeholder: "Enter email :",
             required: true,
-        }),
-        userFormInput({
-            id: 4,
-            inputType: 1,
+        },
+        {
+            id: "signupForm_inputFields_4",
+            variant: 1,
             name: "password",
             type: "password",
-            label: "Enter password :",
-            placeholder: "Enter Password :",
+            label: "Enter your password :",
+            placeholder: "Enter your Password :",
             required: true,
-        }),
-        userFormInput({
-            id: 5,
-            inputType: 1,
+        },
+        {
+            id: "signupForm_inputFields_5",
+            variant: 1,
             name: "confirmPassword",
             type: "password",
-            label: "Confirm password :",
-            placeholder: "Confirm Password :",
+            label: "confirm password :",
+            placeholder: "confirm password :",
             required: true,
-        }),
+        },
     ],
 };
+
+export const subscribeNowLayout = {
+    id: "subscribeNowForm",
+    values: {
+        email: "",
+    },
+    button: {
+        id: "subscribeNowForm_btn",
+        text: "Subscribe Now",
+        variant: 1,
+    },
+    inputFields: [
+        {
+            id: "subscribeNowForm_inputField_1",
+            variant: 1,
+            name: "email",
+            type: "text",
+            label: "Enter email Address :",
+            placeholder: "Enter email Address :",
+            required: true,
+        },
+    ],
+};
+
+
+// export const userFormInput = ({
+//     id,
+//     variant = 0,
+//     name = "",
+//     type = "text",
+//     label,
+//     placeholder,
+//     required = false,
+// }: inputField) => {
+//     return {
+//         id: id,
+//         variant: variant,
+//         name: name,
+//         type: type,
+//         label: label,
+//         placeholder: placeholder,
+//         required: required,
+//     };
+// };

@@ -8,26 +8,33 @@
       },
       "navbar": {
         "nav_Links": [
-          { "id": 1, "href": "./", "label": "Home", "dropdown": false },
+          { "id": 1, "href": "/", "label": "Home", "special": false },
           {
             "id": 2,
             "href": "#products",
             "label": "Products",
-            "dropdown": true,
-            "details": "productsData"
+            "special": true,
+            "details": "dropdown"
           },
           {
             "id": 3,
             "href": "/AboutUS",
             "label": "AboutUS",
-            "dropdown": false
+            "special": false
           },
 
           {
             "id": 4,
             "href": "/ContactUS",
             "label": "ContactUS",
-            "dropdown": false
+            "special": false
+          },
+          {
+            "id": 5,
+            "href": "/signin",
+            "label": "SignIn",
+            "special": true,
+            "details": "formBtn"
           }
         ]
       }
@@ -67,11 +74,6 @@
           "links": [
             {
               "id": 1,
-              "label": "customer@frnz.com",
-              "href": "mailto:customer@frnz.com"
-            },
-            {
-              "id": 2,
               "label": "Subscribe Now",
               "href": "/"
             }
