@@ -1,23 +1,14 @@
 import { NextResponse } from "next/server";
 import { db } from "../../../libs/db";
 import { hash } from "bcrypt-ts";
-import * as zod from "zod";
-
-const userSchema = zod
-    .object({
-        username: zod.string().min(6, "username must have 6 digits"),
-        email: zod.string().min(1, "Email is required").email("Invalid email"),
-        password: zod
-            .string()
-            .min(1, "Password is required")
-            .min(8, "Password must have than 8 characters"),
-    })
+import { SignUpSchema } from "../../../libs/validationSchema"
+import { parse } from "valibot";
 
 export async function POST(req: Request) {
 
     try {
         const body = await req.json();
-        const { email, username, password } = userSchema.parse(body);
+        const { fullname, username, email, password } = parse(SignUpSchema, body);
 
         const existingUserByEmail = await db.user.findUnique({
             where: {
@@ -49,6 +40,7 @@ export async function POST(req: Request) {
 
         const newUser = await db.user.create({
             data: {
+                fullname: fullname,
                 username: username,
                 email: email,
                 password: hashedPssword,

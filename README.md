@@ -44,3 +44,7 @@
 
 <h1>to install all depeendencies in one line</h1>
 <p>pnpm add bcrypt-ts react-icons swiper gsap next-auth @hookform/resolvers react-hook-form valibot </p>
+
+<h1>Install Prisma for database connection </h1>
+<p>pnpm add @prisma/client @next-auth/prisma-adapter@canary</p>
+<p>pnpm add prisma --save-dev</p>
