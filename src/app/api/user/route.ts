@@ -75,5 +75,4 @@ export async function POST(req: Request) {
         return NextResponse.json({ message: "something went wrong with user registration" }, { status: 500 });
     }
 
-
 }
