@@ -5,6 +5,10 @@
   @include flex_center;
 }
 
+.flex_left {
+  @include flex_left;
+}
+
 .toggle_show {
   display: block;
 }

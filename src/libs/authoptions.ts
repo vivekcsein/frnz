@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { db } from "./db"
 import { compare } from "bcrypt-ts";
+import { AuthenticationError } from "./AuthencationError";
 // import GoogleProvider from "next-auth/providers/google";
 // import ldap from "ldapjs";
 // const ldap = require("ldapjs");
@@ -25,42 +26,42 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" }
             },
-            async authorize(credentials) {
-
+            async authorize(credentials): Promise<any> {
                 if (!credentials?.email || !credentials.password) {
                     return null;
                 }
 
                 let existingUser = await db.user.findUnique({
                     where: { email: credentials.email },
-                    // where: {
-                    //     OR: [
-                    //         { username: credentials.username },
-                    //         { email: credentials.email }
-                    //     ]
-                    // }
+                    include: {
+                        profile: true
+                    }
                 })
+
                 if (!existingUser) {
-                    return null;
+                    throw new AuthenticationError('Email is not registered');
                 }
 
-                if (existingUser) {
-                    const passwordMatch = await compare(credentials.password, existingUser.password);
+                if (existingUser?.profile) {
+                    const passwordMatch = await compare(credentials.password, existingUser.profile.password as string);
                     if (!passwordMatch) {
-                        throw new Error('Incorrect Password');
+                        throw new AuthenticationError('Incorrect Password');
                     } else {
-                        console.log(`${credentials.email} has now signedIN`);
+                        console.log(`Welcome to the Frenzz.in`);
                     }
+                } else {
+                    throw new AuthenticationError("Profile does not exist for this user");
                 }
 
                 return {
-                    id: `${existingUser.id}`,
-                    username: existingUser.username,
+                    id: `${existingUser.profile?.id}`,
                     email: existingUser.email,
-                    role: existingUser.role,
+                    username: existingUser.profile?.username,
+                    // role: existingUser.profile
                 }
             }
         }),
+
         // CredentialsProvider({
         //     name: "LDAP",
         //     credentials: {
@@ -102,8 +103,8 @@ export const authOptions: NextAuthOptions = {
                     // refreshTokenExpiresIn: 60 * 60 * 24 * 30,
                     // expiresIn: "1d",
                     sub: user.id,
-                    username: user.username,
-                    role: user.role,
+                    // username: user.username,
+                    // role: user.role,
                 }
             }
             return token
@@ -113,8 +114,8 @@ export const authOptions: NextAuthOptions = {
                 ...session,
                 user: {
                     ...session.user,
-                    username: token.username,
-                    role: token.role
+                    // username: token.username,
+                    // role: token.role
                 }
             }
         },

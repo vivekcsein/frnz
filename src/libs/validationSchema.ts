@@ -1,7 +1,6 @@
 import {
     email,
     object,
-    type Output,
     string,
     regex,
     minLength,
@@ -28,17 +27,15 @@ const isValidUsernameStartWithAlphabet = (username: string) => {
 const isValidUsernameNoSpecialchar = (username: string) => {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     return !specialChars.test(username);
-
-
 }
 
-const EmailSchema = string("Your email must be a string.", [
+export const EmailSchema = string("Your email must be a string.", [
     minLength(1, "Please enter your email."),
     email("The email address is badly formatted."),
     custom(isValidEmailDomainProvider, "Use Gmail, Outlook, Provider"),
 ])
 
-const PasswordSchema = string("Your password must be a string.", [
+export const PasswordSchema = string("Your password must be a string.", [
     minLength(1, "Please enter your password."),
     maxLength(30, "Your password is too long."),
     minLength(8, "Your password must have 8 characters or more."),
@@ -47,7 +44,7 @@ const PasswordSchema = string("Your password must be a string.", [
     regex(/[0-9]/, "Your password must contain a number."),
 ])
 
-const UsernameSchema = string("username must be a string.", [
+export const UsernameSchema = string("username must be a string.", [
     minLength(1, "Please enter your email."),
     minLength(6, "username must have 6 characters or more."),
     maxLength(12, "Your username is too long."),
@@ -56,13 +53,13 @@ const UsernameSchema = string("username must be a string.", [
 
 ]);
 
-const nameSchema = string("fullname must be a string.", [
-    minLength(1, "Please enter your email."),
+export const nameSchema = string("Name must be a string.", [
+    minLength(1, "Please enter your name."),
     minLength(3, "Name must have 3 characters or more."),
     maxLength(20, "Your name is too long."),
 ]);
 
-const searchSchema = string("search must be a string.", [
+export const searchNowSchema = string("search must be a string.", [
     minLength(1, "Please enter your email."),
 ]);
 
@@ -84,11 +81,62 @@ export const SignUpSchema = object({
                 (input) => input.password === input.confirmPassword,
                 'passwords do not match',
             ),
-            ['confirmPassword']
+            ['confirmPassword'],
         ),
     ]
 )
 
+export const signupPostSchema = object({
+    fullname: nameSchema,
+    username: UsernameSchema,
+    email: EmailSchema,
+    password: PasswordSchema,
+});
+
+export const usernameExits = object({
+    username: UsernameSchema,
+});
+
 export const subscribeNowSchema = object({
     email: EmailSchema
 });
+
+export const serachSchema = object({
+    email: searchNowSchema
+});
+
+
+const checkUsernameAvailability = async (username: string) => {
+    try {
+        const response = await fetch('/api/username', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to check username availability');
+        }
+
+        const { isUsernameAvailable } = await response.json();
+        return isUsernameAvailable;
+
+    } catch (error) {
+        console.error('Failed to check username availability:', error);
+        return false;
+    }
+
+}
+
+
+export const UsernameSchemaOnSignUp = string("username must be a string.", [
+    minLength(1, "Please enter your email."),
+    minLength(6, "username must have 6 characters or more."),
+    maxLength(12, "Your username is too long."),
+    custom(isValidUsernameStartWithAlphabet, "username must start with alphabet"),
+    custom(isValidUsernameNoSpecialchar, "username must not contain special characters"),
+    // customAsync(checkUsernameAvailability, "username already exits"),
+
+]);

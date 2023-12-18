@@ -21,7 +21,6 @@ const config: Config = {
         textDark: 'var(--textDark)',
         textLight: 'var(--textLight)',
         shadow: 'var(--shadow)',
-
       }
     },
   },

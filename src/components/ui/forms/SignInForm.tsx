@@ -18,6 +18,7 @@ const SignInForm = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<Output<typeof SignInSchema>>({
     resolver: valibotResolver(SignInSchema),
@@ -29,7 +30,27 @@ const SignInForm = () => {
   };
 
   const onSubmit = async (values: Output<typeof SignInSchema>) => {
-    console.log(values);
+    const signIndata = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    });
+    if (signIndata?.error) {
+      if (signIndata?.error === "Incorrect Password") {
+        setError("password", {
+          type: "custom",
+          message: signIndata.error,
+        });
+      } else {
+        setError("email", {
+          type: "custom",
+          message: signIndata.error,
+        });
+      }
+    } else {
+      router.refresh();
+      router.push("/user");
+    }
   };
 
   return (

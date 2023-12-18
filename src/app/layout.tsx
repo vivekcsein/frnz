@@ -1,6 +1,6 @@
 import "../styles/globals.css";
-import "../styles/Styles.scss";
 import "../styles/Vars.scss";
+import "../styles/Styles.scss";
 // import "../styles/lib/gsap.css";
 import type { Metadata } from "next";
 import { Poppins, Roboto, Nunito, Cabin } from "next/font/google";

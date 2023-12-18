@@ -4,10 +4,12 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { MdCancel } from "react-icons/md";
 import { valibotResolver } from "@hookform/resolvers/valibot";
-import { type Input, type Output } from "valibot";
+import { parse, type Input, type Output } from "valibot";
 import { SignUpSchema } from "../../../libs/validationSchema";
 import { signupFormLayout } from "@/libs/layoutForm";
 import LogInInput from "../inputs/LogInInput";
+import { NextResponse } from "next/server";
+import { log } from "console";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -15,6 +17,7 @@ const SignUpForm = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<Output<typeof SignUpSchema>>({
     resolver: valibotResolver(SignUpSchema),
@@ -26,25 +29,36 @@ const SignUpForm = () => {
   };
 
   const onSubmit = async (values: Output<typeof SignUpSchema>) => {
-    console.log(values);
+    if (typeof values.fullname !== "string") {
+      console.log("name is not a string");
+    } else {
+      try {
+        const res = await fetch("/api/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fullname: values.fullname,
+            username: values.username,
+            email: values.email,
+            password: values.password,
+          }),
+        });
+        const resData = await res.json();
 
-    try {
-      // const res = await fetch("/api/user", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     username: values.username,
-      //     email: values.email,
-      //     password: values.password,
-      //   }),
-      // });
-      // if (res.ok) {
-      //   router.push("/signin");
-      // }
-    } catch (error) {
-      console.error("something happen wrong");
+        if (resData.statusCode == 409) {
+          setError(resData.user, {
+            type: "custom",
+            message: resData.message,
+          });
+        }
+        if (resData.statusCode == 200) {
+          router.push("/signin");
+        }
+      } catch (error) {
+        console.error(error + "something happen wrong");
+      }
     }
   };
 
