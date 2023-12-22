@@ -46,5 +46,6 @@
 <p>pnpm add bcrypt-ts react-icons swiper gsap next-auth @hookform/resolvers react-hook-form valibot </p>
 
 <h1>Install Prisma for database connection </h1>
-<p>pnpm add @prisma/client @next-auth/prisma-adapter@canary</p>
+<p>pnpm add @prisma/client @next-auth/prisma-adapter</p>
 <p>pnpm add prisma --save-dev</p>
+<p>pnpm dlx primsa</p>
